@@ -1,0 +1,25 @@
+{
+    "compileOnSave": false,
+    "compilerOptions": {
+        "rootDir": ".",
+        "sourceMap": true,
+        "moduleResolution": "node",
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "importHelpers": true,
+        "target": "es2015",
+        "module": "esnext",
+        "lib": ["es2017", "dom"],
+        "skipLibCheck": true,
+        "skipDefaultLibCheck": true,
+        "baseUrl": ".",
+        "paths": {
+            "@api": ["libs/api/node-api-wrapper/src/index.ts"],
+            "@models": ["libs/api/models/node-api-models/src/index.ts"],
+            "@shared": ["libs/shared/src/index.ts"],
+            "@test": ["libs/test/src/index.ts"],
+            "@utils": ["libs/utils/src/index.ts"]
+        }
+    },
+    "exclude": ["node_modules", "tmp"]
+}

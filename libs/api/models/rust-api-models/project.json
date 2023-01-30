@@ -1,0 +1,61 @@
+{
+    "name": "rust-api-models",
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+    "projectType": "library",
+    "sourceRoot": "libs/api/models/rust-api-models/src",
+    "namedInputs": {
+        "default": ["{projectRoot}/**/*"]
+    },
+    "targets": {
+        "build": {
+            "inputs": ["grpcModels", "default"],
+            "executor": "@ignisda/nx-rust:build",
+            "defaultConfiguration": "production",
+            "options": {
+                "locked": true
+            },
+            "configurations": {
+                "production": {
+                    "release": true
+                },
+                "development": {
+                    "release": false
+                }
+            }
+        },
+        "test": {
+            "dependsOn": ["build"],
+            "inputs": ["grpcModels", "default"],
+            "executor": "@ignisda/nx-rust:test",
+            "defaultConfiguration": "production",
+            "options": {
+                "frozen": true,
+                "locked": true
+            },
+            "configurations": {
+                "production": {
+                    "release": true
+                },
+                "development": {
+                    "release": false
+                }
+            }
+        },
+        "lint": {
+            "inputs": ["desktopExported"],
+            "dependsOn": ["^export"],
+            "executor": "@ignisda/nx-rust:clippy",
+            "options": {
+                "fix": false,
+                "failOnWarnings": true,
+                "noDeps": true
+            }
+        },
+        "fmt": {
+            "dependsOn": ["build"],
+            "inputs": ["grpcModels", "default"],
+            "command": "cargo fmt -p rust-api-models --check"
+        }
+    },
+    "tags": []
+}

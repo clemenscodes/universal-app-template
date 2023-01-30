@@ -1,0 +1,43 @@
+{
+    "name": "sb-web-demo",
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+    "sourceRoot": "apps/.storybook/web/demo",
+    "projectType": "application",
+    "targets": {
+        "start": {
+            "executor": "@nrwl/storybook:storybook",
+            "options": {
+                "uiFramework": "@storybook/react",
+                "port": 4400,
+                "configDir": "apps/.storybook/web/demo"
+            },
+            "configurations": {
+                "ci": {
+                    "quiet": true
+                }
+            }
+        },
+        "build-storybook": {
+            "executor": "@nrwl/storybook:build",
+            "outputs": ["{options.outputDir}"],
+            "options": {
+                "uiFramework": "@storybook/react",
+                "configDir": "apps/.storybook/web/demo",
+                "outputDir": "dist/storybook/web"
+            },
+            "configurations": {
+                "ci": {
+                    "quiet": true
+                }
+            }
+        },
+        "test-storybook": {
+            "executor": "nx:run-commands",
+            "options": {
+                "command": "test-storybook -c apps/.storybook/web/demo/ --url=http://localhost:4400"
+            }
+        }
+    },
+    "implicitDependencies": ["web-demo"],
+    "tags": []
+}

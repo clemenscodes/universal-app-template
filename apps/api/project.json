@@ -1,0 +1,75 @@
+{
+    "name": "api",
+    "$schema": "../../node_modules/nx/schemas/project-schema.json",
+    "projectType": "application",
+    "sourceRoot": "apps/api/src",
+    "targets": {
+        "start": {
+            "executor": "@ignisda/nx-rust:run",
+            "defaultConfiguration": "production",
+            "options": {
+                "locked": true
+            },
+            "configurations": {
+                "production": {
+                    "release": true,
+                    "locked": true,
+                    "run": true
+                },
+                "development": {
+                    "release": false,
+                    "locked": true,
+                    "run": true
+                }
+            }
+        },
+        "build": {
+            "executor": "@ignisda/nx-rust:build",
+            "defaultConfiguration": "production",
+            "options": {
+                "locked": true
+            },
+            "configurations": {
+                "production": {
+                    "release": true,
+                    "locked": true
+                },
+                "development": {
+                    "release": false,
+                    "locked": true
+                }
+            }
+        },
+        "test": {
+            "executor": "@ignisda/nx-rust:test",
+            "dependsOn": ["build"],
+            "defaultConfiguration": "production",
+            "options": {
+                "frozen": true,
+                "locked": true
+            },
+            "configurations": {
+                "production": {
+                    "release": true
+                },
+                "development": {
+                    "release": false
+                }
+            }
+        },
+        "lint": {
+            "executor": "@ignisda/nx-rust:clippy",
+            "dependsOn": ["build"],
+            "options": {
+                "fix": false,
+                "failOnWarnings": true,
+                "noDeps": true
+            }
+        },
+        "fmt": {
+            "command": "cargo fmt -p api -- --check"
+        }
+    },
+    "implicitDependencies": ["rust-api-models"],
+    "tags": []
+}

@@ -1,0 +1,34 @@
+{
+    "name": "e2e-web-demo",
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+    "sourceRoot": "apps/e2e/web/demo/src",
+    "projectType": "application",
+    "targets": {
+        "e2e": {
+            "dependsOn": ["^build"],
+            "executor": "@nrwl/cypress:cypress",
+            "defaultConfiguration": "production",
+            "options": {
+                "cypressConfig": "apps/e2e/web/demo/cypress.config.ts",
+                "testingType": "e2e"
+            },
+            "configurations": {
+                "development": {
+                    "devServerTarget": "web-demo:start:development"
+                },
+                "production": {
+                    "devServerTarget": "web-demo:start:production"
+                }
+            }
+        },
+        "lint": {
+            "executor": "@nrwl/linter:eslint",
+            "outputs": ["{options.outputFile}"],
+            "options": {
+                "lintFilePatterns": ["apps/e2e/web/demo/**/*.{js,ts}"]
+            }
+        }
+    },
+    "tags": [],
+    "implicitDependencies": ["web-demo"]
+}

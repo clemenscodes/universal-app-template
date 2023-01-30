@@ -1,0 +1,33 @@
+{
+    "name": "mobile-demo",
+    "private": true,
+    "main": "index.js",
+    "dependencies": {
+        "@expo/metro-config": "*",
+        "@expo/webpack-config": "*",
+        "@nrwl/expo": "*",
+        "@nrwl/react": "*",
+        "@react-native-async-storage/async-storage": "*",
+        "@react-navigation/native": "*",
+        "@storybook/core-common": "*",
+        "@storybook/react": "*",
+        "@storybook/react-native": "*",
+        "@testing-library/jest-native": "*",
+        "@testing-library/react-native": "*",
+        "expo": "*",
+        "expo-router": "*",
+        "nativewind": "*",
+        "next-router-mock": "*",
+        "react": "*",
+        "react-native": "*",
+        "react-native-gesture-handler": "*",
+        "react-native-reanimated": "*",
+        "react-native-safe-area-context": "*",
+        "react-native-svg": "*",
+        "react-native-web": "*",
+        "solito": "*"
+    },
+    "scripts": {
+        "postinstall": "npx nx sync-deps mobile-demo && npx nx ensure-symlink mobile-demo"
+    }
+}

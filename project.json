@@ -1,0 +1,22 @@
+{
+    "name": "workspace",
+    "$schema": "node_modules/nx/schemas/project-schema.json",
+    "targets": {
+        "version": {
+            "executor": "@jscutlery/semver:version",
+            "options": {
+                "syncVersions": false,
+                "tagPrefix": "v",
+                "allowEmptyRelease": false,
+                "skipCommitTypes": ["chore", "build", "ci", "docs", "refactor", "test"],
+                "noVerify": true,
+                "changelogHeader": "# Universal Changelog\n",
+                "push": false,
+                "commitMessageFormat": "chore(${projectName}): release version ${version} [skip ci]",
+                "remote": "origin",
+                "baseBranch": "main",
+                "preset": "conventional"
+            }
+        }
+    }
+}

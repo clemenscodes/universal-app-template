@@ -1,0 +1,43 @@
+{
+    "name": "sb-web-shared",
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+    "sourceRoot": "apps/.storybook/web/shared",
+    "projectType": "application",
+    "targets": {
+        "start": {
+            "executor": "@nrwl/storybook:storybook",
+            "options": {
+                "uiFramework": "@storybook/react",
+                "port": 4400,
+                "configDir": "apps/.storybook/web/shared"
+            },
+            "configurations": {
+                "ci": {
+                    "quiet": true
+                }
+            }
+        },
+        "build-storybook": {
+            "executor": "@nrwl/storybook:build",
+            "outputs": ["{options.outputDir}"],
+            "options": {
+                "uiFramework": "@storybook/react",
+                "configDir": "apps/.storybook/web/shared",
+                "outputDir": "dist/storybook/web"
+            },
+            "configurations": {
+                "ci": {
+                    "quiet": true
+                }
+            }
+        },
+        "test-storybook": {
+            "executor": "nx:run-commands",
+            "options": {
+                "command": "test-storybook -c apps/.storybook/web/shared/ --url=http://localhost:4400"
+            }
+        }
+    },
+    "implicitDependencies": ["shared"],
+    "tags": []
+}

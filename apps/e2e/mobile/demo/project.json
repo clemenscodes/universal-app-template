@@ -1,0 +1,93 @@
+{
+    "name": "e2e-mobile-demo",
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+    "sourceRoot": "apps/e2e/mobile/demo/src",
+    "projectType": "application",
+    "targets": {
+        "build-ios": {
+            "executor": "@nrwl/detox:build",
+            "options": {
+                "detoxConfiguration": "ios.sim.debug"
+            },
+            "configurations": {
+                "local": {
+                    "detoxConfiguration": "ios.sim.local"
+                },
+                "bare": {
+                    "detoxConfiguration": "ios.sim.debug"
+                },
+                "production": {
+                    "detoxConfiguration": "ios.sim.release"
+                }
+            }
+        },
+        "test-ios": {
+            "executor": "@nrwl/detox:test",
+            "options": {
+                "detoxConfiguration": "ios.sim.eas",
+                "buildTarget": "e2e-mobile-demo:build-ios"
+            },
+            "configurations": {
+                "local": {
+                    "detoxConfiguration": "ios.sim.local",
+                    "buildTarget": "e2e-mobile-demo:build-ios:local"
+                },
+                "bare": {
+                    "detoxConfiguration": "ios.sim.debug",
+                    "buildTarget": "e2e-mobile-demo:build-ios:bare"
+                },
+                "production": {
+                    "detoxConfiguration": "ios.sim.release",
+                    "buildTarget": "e2e-mobile-demo:build-ios:production"
+                }
+            }
+        },
+        "build-android": {
+            "executor": "@nrwl/detox:build",
+            "options": {
+                "detoxConfiguration": "android.emu.debug"
+            },
+            "configurations": {
+                "local": {
+                    "detoxConfiguration": "android.emu.local"
+                },
+                "bare": {
+                    "detoxConfiguration": "android.emu.debug"
+                },
+                "production": {
+                    "detoxConfiguration": "android.emu.release"
+                }
+            }
+        },
+        "test-android": {
+            "executor": "@nrwl/detox:test",
+            "options": {
+                "detoxConfiguration": "android.emu.eas",
+                "buildTarget": "e2e-mobile-demo:build-ios"
+            },
+            "configurations": {
+                "local": {
+                    "detoxConfiguration": "android.emu.local",
+                    "buildTarget": "e2e-mobile-demo:build-ios:local"
+                },
+                "bare": {
+                    "detoxConfiguration": "android.emu.debug",
+                    "buildTarget": "e2e-mobile-demo:build-ios:bare"
+                },
+                "production": {
+                    "detoxConfiguration": "android.emu.release",
+                    "buildTarget": "e2e-mobile-demo:build-ios:production"
+                }
+            }
+        },
+        "lint": {
+            "executor": "@nrwl/linter:eslint",
+            "outputs": ["{options.outputFile}"],
+            "options": {
+                "lintFilePatterns": ["apps/e2e/mobile/demo/**/*.{ts,tsx,js,jsx}"]
+            }
+        }
+    },
+    "tags": [],
+    "implicitDependencies": ["mobile-demo"]
+}

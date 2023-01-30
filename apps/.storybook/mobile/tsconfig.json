@@ -1,0 +1,18 @@
+{
+    "extends": "../../../tsconfig.base.json",
+    "compilerOptions": {
+        "allowSyntheticDefaultImports": true,
+        "jsx": "react-native",
+        "lib": ["dom", "esnext"],
+        "moduleResolution": "node",
+        "skipLibCheck": true,
+        "resolveJsonModule": true,
+        "strict": true
+    },
+    "files": [
+        "../../../node_modules/@nrwl/expo/typings/svg.d.ts",
+        "../../../node_modules/@testing-library/jest-native/extend-expect.d.ts"
+    ],
+    "include": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx", "**/*.d.ts", "./story-loader.js"],
+    "exclude": ["node_modules", "jest.config.ts"]
+}

@@ -1,0 +1,21 @@
+{
+    "name": "sb-mobile",
+    "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+    "sourceRoot": "apps/.storybook/mobile",
+    "projectType": "application",
+    "targets": {
+        "fetch": {
+            "command": "sb-rn-get-stories --config-path apps/.storybook/mobile"
+        },
+        "start": {
+            "dependsOn": ["fetch"],
+            "executor": "@nrwl/expo:start",
+            "options": {
+                "clear": true,
+                "port": 8082
+            }
+        }
+    },
+    "implicitDependencies": ["shared"],
+    "tags": []
+}

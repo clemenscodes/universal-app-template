@@ -1,0 +1,74 @@
+{
+    "name": "desktop-demo",
+    "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+    "projectType": "application",
+    "sourceRoot": "apps/src-tauri/demo/src",
+    "targets": {
+        "build": {
+            "inputs": ["desktopExported"],
+            "dependsOn": ["^export"],
+            "executor": "@ignisda/nx-rust:build",
+            "defaultConfiguration": "production",
+            "options": {
+                "locked": true
+            },
+            "configurations": {
+                "production": {
+                    "release": true
+                },
+                "development": {
+                    "release": false
+                }
+            }
+        },
+        "test": {
+            "inputs": ["desktopExported"],
+            "dependsOn": ["^export"],
+            "executor": "@ignisda/nx-rust:test",
+            "defaultConfiguration": "production",
+            "options": {
+                "locked": true
+            },
+            "configurations": {
+                "production": {
+                    "release": true
+                },
+                "development": {
+                    "release": false
+                }
+            }
+        },
+        "lint": {
+            "inputs": ["desktopExported"],
+            "dependsOn": ["^export"],
+            "executor": "@ignisda/nx-rust:clippy",
+            "options": {
+                "fix": false,
+                "failOnWarnings": true,
+                "noDeps": true
+            }
+        },
+        "start": {
+            "inputs": ["desktopExported"],
+            "dependsOn": ["^export"],
+            "executor": "nx:run-commands",
+            "defaultConfiguration": "development",
+            "configurations": {
+                "production": {
+                    "command": "cargo tauri dev -- --release"
+                },
+                "development": {
+                    "command": "cargo tauri dev"
+                }
+            }
+        },
+        "fmt": {
+            "command": "cargo fmt -p desktop --check"
+        },
+        "desktop": {
+            "command": "cargo tauri build -- --locked"
+        }
+    },
+    "implicitDependencies": ["web-demo"],
+    "tags": []
+}

@@ -1,0 +1,61 @@
+{
+    "name": "node-api-models",
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+    "sourceRoot": "libs/api/models/node-api-models/src",
+    "projectType": "library",
+    "tags": [],
+    "namedInputs": {
+        "defaultGrpc": ["default", "grpcModels"]
+    },
+    "targets": {
+        "codegen": {
+            "inputs": ["defaultGrpc"],
+            "command": "libs/api/models/node-api-models/codegen.sh"
+        },
+        "test-codegen": {
+            "inputs": ["defaultGrpc"],
+            "command": "[ -d libs/api/models/node-api-models/src/lib/api ] || yarn nx codegen node-api-models --skip-nx-cache"
+        },
+        "build": {
+            "executor": "@nrwl/web:rollup",
+            "outputs": ["{options.outputPath}"],
+            "inputs": ["defaultGrpc"],
+            "dependsOn": ["test-codegen"],
+            "options": {
+                "outputPath": "dist/libs/api/models/node-api-models",
+                "tsConfig": "libs/api/models/node-api-models/tsconfig.lib.json",
+                "project": "libs/api/models/node-api-models/package.json",
+                "compiler": "swc",
+                "entryFile": "libs/api/models/node-api-models/src/index.ts",
+                "external": ["react/jsx-runtime"],
+                "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
+                "assets": [
+                    {
+                        "glob": "libs/api/models/node-api-models/README.md",
+                        "input": ".",
+                        "output": "."
+                    }
+                ]
+            }
+        },
+        "lint": {
+            "inputs": ["defaultGrpc"],
+            "dependsOn": ["test-codegen"],
+            "executor": "@nrwl/linter:eslint",
+            "outputs": ["{options.outputFile}"],
+            "options": {
+                "lintFilePatterns": ["libs/api/models/node-api-models/**/*.{ts,tsx,js,jsx}"]
+            }
+        },
+        "test": {
+            "inputs": ["defaultGrpc"],
+            "dependsOn": ["test-codegen"],
+            "executor": "@nrwl/jest:jest",
+            "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+            "options": {
+                "jestConfig": "libs/api/models/node-api-models/jest.config.ts",
+                "passWithNoTests": true
+            }
+        }
+    }
+}

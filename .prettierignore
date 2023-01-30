@@ -1,0 +1,12 @@
+**/dist
+**/coverage
+**/node_modules
+**/.next
+**/.expo
+**/build
+**/target
+.yarn/
+**/storybook.requires.js
+*.md
+.docusaurus/
+**/.vscode

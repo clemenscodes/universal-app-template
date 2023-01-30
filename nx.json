@@ -1,0 +1,55 @@
+{
+    "$schema": "./node_modules/nx/schemas/nx-schema.json",
+    "npmScope": "universal-app-template",
+    "plugins": ["@ignisda/nx-rust"],
+    "tasksRunnerOptions": {
+        "default": {}
+    },
+    "namedInputs": {
+        "default": ["{projectRoot}/**/*", "sharedGlobals"],
+        "production": [
+            "default",
+            "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
+            "!{projectRoot}/tsconfig.spec.json",
+            "!{projectRoot}/jest.config.[jt]s",
+            "!{projectRoot}/.eslintrc.json"
+        ],
+        "sharedGlobals": ["{workspaceRoot}/babel.config.json"],
+        "desktopExported": ["{workspaceRoot}/dist/apps/clients/web/**/exported"],
+        "grpcModels": ["{workspaceRoot}/tools/models/**/*.proto"]
+    },
+    "targetDefaults": {
+        "build": {
+            "dependsOn": ["^build"],
+            "inputs": ["default", "production", "^production"]
+        },
+        "lint": {
+            "dependsOn": ["^build"],
+            "inputs": ["default", "{workspaceRoot}/.eslintrc.json"]
+        },
+        "test": {
+            "dependsOn": ["^build"],
+            "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"]
+        },
+        "e2e": {
+            "dependsOn": ["build"],
+            "inputs": ["default", "^production"]
+        }
+    },
+    "generators": {
+        "@nrwl/react": {
+            "application": {
+                "babel": true
+            },
+            "library": {
+                "unitTestRunner": "jest"
+            }
+        },
+        "@nrwl/next": {
+            "application": {
+                "style": "css",
+                "linter": "eslint"
+            }
+        }
+    }
+}
